@@ -39,7 +39,7 @@ defmodule ShaderServerWeb.GenerateShaderJson do
   """
 
   def generate_shader(conn, %{"prompt" => prompt} = _params) do
-    api_key = Application.get_env(:shader_server, :gemini)[:api_key]
+    api_key = Application.get_env(:shader_server, :gemini_api_key)
 
     case api_key do
       nil ->

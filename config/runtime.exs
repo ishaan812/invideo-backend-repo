@@ -33,10 +33,18 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  gemini_api_key =
+    System.get_env("GEMINI_API_KEY") ||
+      raise """
+      environment variable GEMINI_API_KEY is missing.
+      Please set it in your Fly.io secrets.
+      """
+
   host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :shader_server, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
+  config :shader_server, :gemini_api_key, gemini_api_key
 
   config :shader_server, ShaderServerWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
